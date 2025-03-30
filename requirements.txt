@@ -1,0 +1,11 @@
+rich~=13.9.4
+opencv-python~=4.10.0.84
+numpy~=1.26.4
+ultralytics~=8.3.74
+psutil~=6.1.1
+GPUtil~=1.4.0
+requests~=2.32.3
+wifi~=0.3.8
+matplotlib~=3.10.0
+yolov5~=7.0.14
+setuptools~=70.0.0

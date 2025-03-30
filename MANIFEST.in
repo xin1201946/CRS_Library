@@ -1,0 +1,2 @@
+recursive-include library/clear_pic *.pt
+recursive-include library/get_num *.pt

@@ -1,0 +1,13 @@
+rich~=13.9.4
+opencv-python~=4.10.0.84
+ultralytics~=8.3.63
+setuptools~=70.0.0
+psutil~=6.1.1
+GPUtil~=1.4.0
+requests~=2.32.3
+torch~=2.6.0
+torchvision~=0.21.0
+torchaudio~=2.6.0
+wifi~=0.3.8
+matplotlib~=3.10.0
+yolov5~=7.0.14
