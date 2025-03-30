@@ -3,10 +3,11 @@ name: CCRS_Library package
 on:
   push:
     branches: [ "main" ]
+permissions:
+  contents: write
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -34,6 +35,7 @@ jobs:
         path: dist/
 
   create-release:
+
     needs: build
     runs-on: ubuntu-latest
     steps:
