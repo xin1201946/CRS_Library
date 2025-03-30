@@ -1,12 +1,7 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: CCRS_Library package
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -27,11 +22,35 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8
+        python -m pip install  build
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+    - name: Build package
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        python -m build
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: package-dist
+        path: dist/
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: package-dist
+          path: dist/
+      - name: Get current date
+        id: date
+        run: echo "RELEASE_DATE=$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_ENV
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.RELEASE_DATE }}
+          name: Release v${{ env.RELEASE_DATE }}
+          body: "This is an automated release of the latest main branch."
+          draft: false
+          prerelease: false
+          files: dist/*
