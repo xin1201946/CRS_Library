@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 # python setup.py bdist_wheel
 setup(
     name='CCRS_Library',
-    version='2.0.6.2',
+    version='2.0.6.4',
     packages=['CCRS_Library', 'CCRS_Library.TUI', 'CCRS_Library.sql', 'CCRS_Library.get_num', 'CCRS_Library.sys_info',
               'CCRS_Library.clear_pic'],
     url='',

@@ -4,8 +4,8 @@ import sqlite3
 
 def check_and_create_database(db_file):
     """
-    检查数据库文件是否存在，如果不存在则创建数据库及相关的数据表（hub_info表和mold_info表）
-    Check if the database file exists. If not, create the database and related tables (hub_info and mold_info).
+    检查数据库文件是否存在，如果不存在则创建数据库及相关的数据表（recognition_record表和mold_info表）
+    Check if the database file exists. If not, create the database and related tables (recognition_record and mold_info).
 
     :param db_file: 数据库文件的路径
     :param db_file: The path of the database file.
