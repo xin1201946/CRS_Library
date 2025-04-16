@@ -14,7 +14,7 @@ Here are the built-in attached packages and their information
 PackageName:
     clear_pic
     get_num
-    GUI
+    TUI
     sql
     sys_info
 ---------------------------------------------

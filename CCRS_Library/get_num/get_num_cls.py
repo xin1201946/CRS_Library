@@ -14,7 +14,7 @@ pathlib.PosixPath = pathlib.WindowsPath
 # Initialize the model to None
 model = None
 
-def load_model():
+def load_model(Allow_null=False):
     """
     加载YOLO模型。
     Load the YOLO model.
@@ -27,7 +27,11 @@ def load_model():
     from ultralytics import YOLO
     # 使用importlib.resources获取模型文件的路径
     # Use importlib.resources to get the path of the model file
-    with importlib.resources.path("CCRS_Library.get_num", "num_class_v2.pt") as model_path:
+    if Allow_null:
+        model_path = "num_class_null_v1.pt"
+    else:
+        model_path = "num_class_v2.pt"
+    with importlib.resources.path("CCRS_Library.get_num", resource=model_path) as model_path:
         # 加载模型
         # Load the model
         model = YOLO(str(model_path))
@@ -251,7 +255,8 @@ def save_files(path, save_name, img):
     # Save the image
     cv2.imwrite(full_path, img)
 
-def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_result=False, load_imagePath='./cache/crop.jpg'):
+def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_result=False,
+         load_imagePath='./cache/crop.jpg',allow_Null=False,confidence_Req=0.8):
     """
     主函数，用于加载图像、进行预测并保存结果。
     The main function for loading images, making predictions, and saving results.
@@ -267,11 +272,15 @@ def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_r
         show_result (bool, optional): Whether to show the recognition result. Defaults to True.
         load_imagePath (str, optional): 加载图像的路径。默认为'./cache/crop.jpg'。
         load_imagePath (str, optional): The path to load the image. Defaults to './cache/crop.jpg'.
-
+        allow_Null (bool, optional): 是否允许识别为NULL。默认为False。
+        allow_Null (bool, optional): Whether to allow recognition as NULL. Defaults to False.
+        confidence_Req (float, optional): 置信度要求。默认为0.8。
+        confidence_Req (float, optional): The confidence requirement. Defaults to 0.8.
     Returns:
         str: 识别出的类别名称。
         str: The recognized class name.
     """
+    print("Loading CLASS MODEL...")
     global model
     # 如果load_imagePath为None，则使用默认路径
     # If load_imagePath is None, use the default path
@@ -284,11 +293,11 @@ def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_r
     if model is None:
         # 如果模型未加载，则加载模型
         # If the model is not loaded, load the model
-        load_model()
+        load_model(allow_Null)
 
     # 使用模型进行推理
     # Use the model for inference
-    resized_image = cv2.resize(img, (224, 224), interpolation=cv2.INTER_CUBIC)
+    resized_image = cv2.resize(img, (640, 640), interpolation=cv2.INTER_CUBIC)
     results = model.predict(source=resized_image, save=False)
 
     class_name = ""
@@ -296,8 +305,11 @@ def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_r
     for result in results:
         probs = result.probs
         class_id = probs.top1
-        class_name = model.names[class_id]
         confidence = probs.top1conf.item()
+        if confidence >= confidence_Req:  # 判断是否大于等于 预设的置信度
+            class_name = model.names[class_id]
+        else:
+            class_name = "NULL"
         print(f"Recognized Class: {class_name}")
         print(f"Confidence: {confidence:.2f}")
 

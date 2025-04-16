@@ -18,6 +18,7 @@ CCRS_Library/get_num/get_num_cls.py
 CCRS_Library/get_num/get_num_obb.py
 CCRS_Library/get_num/get_num_obj.py
 CCRS_Library/get_num/num_class_v2.pt
+CCRS_Library/get_num/num_class_v3.pt
 CCRS_Library/get_num/num_obb_v2.pt
 CCRS_Library/get_num/num_obj_v1.pt
 CCRS_Library/sql/__init__.py

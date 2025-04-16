@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 # python setup.py bdist_wheel
 setup(
     name='CCRS_Library',
-    version='2.0.6.4',
+    version='2.0.6.9',
     packages=['CCRS_Library', 'CCRS_Library.TUI', 'CCRS_Library.sql', 'CCRS_Library.get_num', 'CCRS_Library.sys_info',
               'CCRS_Library.clear_pic'],
     url='',
@@ -20,7 +20,7 @@ setup(
         'torchaudio~=2.6.0',
         'wifi~=0.3.8',
         'matplotlib~=3.10.0',
-        'yolov5~=7.0.14',  # 验证是否支持torch 2.6.0
+        'yolov5~=7.0.14',
     ],
     package_data={
         'CCRS_Library.clear_pic': ['*.pt'],  # 包含所有.pt文件

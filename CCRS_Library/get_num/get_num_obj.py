@@ -249,7 +249,8 @@ def save_files(path, save_name, img):
     # Save the image
     cv2.imwrite(full_path, img)
 
-def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_result=False, load_imagePath='./cache/crop.jpg'):
+def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_result=False,
+         load_imagePath='./cache/crop.jpg',iouReq=0.45, confReq=0.1):
     """
     主函数，用于加载图像、进行预测并保存结果。
     The main function for loading images, making predictions, and saving results.
@@ -265,11 +266,16 @@ def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_r
         show_result (bool, optional): Whether to show the recognition result. Defaults to True.
         load_imagePath (str, optional): 加载图像的路径。默认为'./cache/crop.jpg'。
         load_imagePath (str, optional): The path to load the image. Defaults to './cache/crop.jpg'.
+        iouReq (float, optional): 用于过滤预测的IoU阈值。默认为0.45。
+        iouReq (float, optional): The IoU threshold used for filtering predictions. Defaults to 0.45.
+        confReq (float, optional): 用于过滤预测的置信度阈值。默认为0.1。
+        confReq (float, optional): The confidence threshold used for filtering predictions. Defaults to 0.1.
 
     Returns:
         str: 识别出的类别名称。
         str: The recognized class name.
     """
+    print("Loading OBJECT MODEL...")
     global model
     # 如果load_imagePath为None，则使用默认路径
     # If load_imagePath is None, use the default path
@@ -291,7 +297,7 @@ def main(save_path="./Out_PIC/", save_name='result.jpg', save_file=False, show_r
 
     # 使用模型进行推理
     # Use the model for inference
-    results = model(img, conf=0.1, iou=0.45)  # 调整置信度和IoU阈值
+    results = model(img, conf=confReq, iou=iouReq)  # 调整置信度和IoU阈值
     # Adjust confidence and IoU thresholds
 
     # 存储所有识别结果
