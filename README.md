@@ -43,10 +43,6 @@
   - `torch`（用于 YOLOv5 和 YOLOv11 模型）
   - `opencv-python`（用于图像处理）
   - 其他依赖见 `requirements.txt`
-- **硬件要求**：
-  - CPU：四核 2.40GHz 或更高
-  - 内存：32GB 或更多
-  - 存储：至少 10GB 可用空间
 
 ### 安装步骤
 
