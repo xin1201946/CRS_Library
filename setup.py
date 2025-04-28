@@ -29,5 +29,5 @@ setup(
     include_package_data=True,
     author='林间追风',
     author_email='1324435230@qq.com',
-    description='CCRS的私有包组件，请勿公布于Pypi等平台'
+    description='CCRS_Library 是一个CCRS项目的必要组件，提供数据库快捷操作，剪裁和识别铸字图像功能。'
 )
