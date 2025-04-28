@@ -35,9 +35,11 @@ jobs:
         path: dist/
 
   create-release:
-
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Download package artifact
         uses: actions/download-artifact@v4
