@@ -56,3 +56,15 @@ jobs:
           draft: false
           prerelease: false
           files: dist/*
+      - name: pypi-publish
+        uses: pypa/gh-action-pypi-publish@v1.12.4
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          repository-url: https://upload.pypi.org/legacy/
+          packages-dir: dist
+          verify-metadata: true
+          skip-existing: true
+          verbose: true
+
+                
